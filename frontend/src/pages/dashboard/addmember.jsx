@@ -7,7 +7,7 @@ import Four from '../../assets/images/dashboard/profile4.png';
 import Edit from '../../assets/images/dashboard/edit.png';
 import Delete from '../../assets/images/dashboard/delete.png';
 import Plus from '../../assets/images/dashboard/plus.svg';
-import './AddMember.css';
+import './addmember.css';
 import { AddMember as addmember } from '../../service/services'; // Adjust the import path as needed
 
 function AddMember() {
