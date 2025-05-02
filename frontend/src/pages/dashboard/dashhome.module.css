@@ -1,0 +1,39 @@
+.tab {
+  display: flex;
+  position: relative;
+  border-bottom: 1px solid #e0e0e0; /* Add a light border below the tabs */
+}
+
+.tab button {
+  background-color: #ffffff;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: color 0.3s ease;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: #888888;
+  position: relative;
+}
+
+.tab button:hover {
+  color: #000000; /* Change color on hover */
+}
+
+.tab button.activeTab {
+  color: #007bff; /* Active tab text color */
+  font-weight: bold; /* Make the active tab bold */
+}
+
+.tab button.activeTab::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: #007bff; /* Blue line for active tab */
+  transition: all 0.3s ease; /* Smooth transition */
+}
+

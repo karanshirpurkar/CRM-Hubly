@@ -1,0 +1,451 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bralow:wght@400;500;600;700&display=swap');
+.home{
+    background-color: #f7fafe;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    /* align-items: center; */
+    width: 100vw;
+    
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+    /* background-color: red; */
+}
+
+.logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 120px;
+} 
+.logo h1{
+    font-family: 'Inter', sans-serif;
+    color: #184E7F;
+    font-size: 40px;
+    padding-left: 7px;
+}
+
+.navbar_button{
+    display: flex;
+    justify-content: center;    
+    align-items: center;
+    padding-right: 120px;
+   
+
+}
+.navbar_button_login{
+    height: 38px;
+    width: 84px;
+    background-color: #f7fafe;
+
+    /* background-color: #244779; */
+    /* padding: 16px 8px; */
+    font-family: 'Bralow', sans-serif; /* Use Bralow font */
+    font-size: 16px;
+    color: #36364A;
+    border: none;
+    border-radius: 8px;
+
+}
+.navbar_button_signup{
+    height: 38px;
+    width: 84px;
+    background-color: #244779;
+    /* padding: 16px 8px; */
+    font-family: 'Bralow', sans-serif; /* Use Bralow font */
+    font-size: 16px;
+    color: white;
+    border: none;
+    border-radius: 8px;
+
+}
+
+.main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    /* background-color: red; */
+}
+
+.div1{
+    display: flex;
+    flex-direction: column;
+    height: 261px;
+    width: 666px;
+    gap: 30px;
+}
+
+.div1 h1{
+    font-family: 'Bralow', sans-serif; /* Use Bralow font */
+    color: #30404D;
+    font-size: 44px;
+
+
+}
+.div1 p{
+    font-family: 'Bralow', sans-serif; /* Use Bralow font */
+    color: #30404D;
+    font-size: 16px;
+    padding-left: 25px;
+
+
+}
+
+
+.div2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 491.3px;
+    width: 577.25px;
+    position: relative;
+    margin-top: 150px;
+}
+
+.div3{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    height: 144px;
+    width: 100vw;
+    background-color: #eaf0f9;
+}
+.div3 img{
+    padding: 120px 48px;
+    /* width: 133px; */
+    /* height: 48px; */
+    object-fit: contain;
+}  
+
+.div5 {
+    display: flex; /* Enable flexbox */
+    flex-direction: column; /* Stack children vertically */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    font-family: 'Bralow', sans-serif; /* Use Bralow font */
+    height: 761.63px;
+    width: 1200px;
+    background-color: #f7fafe;
+    margin: 0 auto; /* Center horizontally if parent is not flexbox */
+}
+
+
+.div4{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    width: 725px;
+    height: 205px;
+    top: 0;
+
+}
+
+.div4 h1{
+    font-family: 'Bralow', sans-serif; /* Use Bralow font */
+    color: #30404D;
+    font-size: 44px;
+    padding-left: 7px;
+    padding-top: 20px;
+    margin-bottom: 24px;
+
+}
+
+.div4 p{
+    font-family: 'Bralow', sans-serif; /* Use Bralow font */
+    color: #30404D;
+    font-size: 18px;
+    padding-left: 7px;
+    padding-top: 20px;
+    margin-bottom: 24px;
+
+}
+
+.div6{
+    /* position: relative; */
+    width: 1200px;
+    height: 512px;
+    margin-top: 74px;
+}
+
+.div61{
+    flex: 1;
+    height: 302px;
+    width: 625px;
+    /* background-color: blue; */
+    margin-top: 30px;
+    position: relative;
+
+    
+}
+.div61 img{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 273;
+    height: 296;
+    object-fit: cover;
+    z-index: 5; /* Ensure the image is behind the text */
+}
+
+.div61 h1{
+    font-size: 24px;
+}
+
+.div61 p{
+    font-size: 16px;
+    color: #394B59;
+}
+
+.div62{
+    flex: 1;
+    width: 475px;
+    /* background-color: red; */
+    /* position: absolute; */
+}
+
+
+
+
+
+
+
+
+.pricing {
+    padding: 64px 48px;
+    /* background-color: white; */
+    text-align: center;
+    margin-top: 50px;
+  }
+.pricing h1 {
+    font-family: 'Bralow', sans-serif; /* Use Bralow font */
+    color: #30404D;
+    font-size: 44px;
+    margin-bottom: 16px;
+  } 
+  
+  .plans {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    margin-top: 32px;
+  }
+  
+  /* .planCard {
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    padding: 36px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 6px rgba(0,0,0,0.05);
+    flex: 1;
+    width: 588px;
+    height: 709px;
+  }
+  
+  .planCard h3 {
+    font-size: 24px;
+    margin-bottom: 8px;
+  }
+  
+  .planCard h4 {
+    font-size: 32px;
+    margin: 16px 0px;
+  }
+  
+  .planCard ul {
+    text-align: left;
+    padding-left: 16px;
+    margin-bottom: 16px;
+  }
+  
+  .planCard button {
+    background-color: #1d4ed8;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+   */
+/* PricingPlans.module.css */
+
+.planCard {
+    background-color: #fff;
+    border-radius: 16px;
+    box-shadow: 0 0 0 1px #e5e7eb, 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+    padding: 32px;
+    width: 100%;
+    max-width: 420px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .planCard h3 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #1f2937;
+  }
+  
+  .planCard p {
+    font-size: 14px;
+    color: #6b7280;
+    margin-bottom: 24px;
+  }
+  
+  .planCard h4 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #2563eb;
+    margin-bottom: 16px;
+  }
+  
+  .planCard h4 span {
+    font-size: 16px;
+    font-weight: 400;
+    color: #9ca3af;
+  }
+  
+  .planCard ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 24px 0;
+  }
+  
+  .planCard ul li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+    font-size: 15px;
+    color: #1f2937;
+    position: relative;
+    padding-left: 26px;
+  }
+  
+  .planCard ul li::before {
+    content: '✔';
+    color: #3b82f6;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+  
+  .planCard button {
+    background-color: transparent;
+    border: 1px solid #e5e7eb;
+    border-radius: 9999px;
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #1f2937;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+  
+  .planCard button:hover {
+    background-color: #2563eb;
+    color: white;
+  }
+  
+
+
+
+/* Footer.module.css */
+/* Footer.module.css */
+
+  
+/* Footer.module.css */
+
+.footer {
+    background-color: #fff;
+    padding: 60px 40px 20px;
+    border-top: 1px solid #e5e7eb;
+    font-family: 'Inter', sans-serif;
+    color: #111827;
+  }
+  
+  .footerCols {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto 40px auto;
+  }
+  
+  .footerLogo {
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+    font-weight: 700;
+    color: #2563eb;
+    flex: 1 1 160px;
+  }
+  
+  .footerCols > div {
+    flex: 1 1 160px;
+    min-width: 140px;
+  }
+  
+  .footerCols h5 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 12px;
+  }
+  
+  .footerCols ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .footerCols ul li {
+    font-size: 14px;
+    color: #4b5563;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: color 0.2s ease;
+  }
+  
+  .footerCols ul li:hover {
+    color: #2563eb;
+  }
+  
+  .footerBottom {
+    text-align: center;
+    font-size: 13px;
+    color: #6b7280;
+    border-top: 1px solid #e5e7eb;
+    padding-top: 20px;
+  }
+  
+  .chatbotContainer {
+    position: fixed; /* Fix the chatbot to the viewport */
+    bottom: 20px; /* Distance from the bottom of the screen */
+    right: 20px; /* Distance from the right of the screen */
+    z-index: 1000; /* Ensure it floats above other elements */
+    width: 400px; /* Set a fixed width for the chatbot */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Add a shadow for better visibility */
+    border-radius: 10px; /* Optional: Add rounded corners */
+    overflow: hidden; /* Prevent content overflow */
+}

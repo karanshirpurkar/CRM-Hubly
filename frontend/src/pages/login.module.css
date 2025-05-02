@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+.logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 45px;
+    width: 142px;   
+    margin: 45px;
+} 
+.logo h1{
+    font-family: 'Inter', sans-serif;
+    color: #184E7F;
+    font-size: 40px;
+    padding-left: 6px;
+}
+
+/*                 position: 'absolute',
+                top: 0,
+                right: 0,
+                zIndex: -1,
+                objectFit: 'cover' */
+.login{
+    display: flex;
+    justify-content: center;
+    align-items: left;
+    flex-direction: column;
+    height: 440px; /* Full viewport height */
+    width: 592px; /* Full viewport width */
+    margin-left: 160px;
+    margin-top: 30px;
+    /* background-color: #F5F5F5; Light grey background color */
+    /* position: relative; Position relative for absolute positioning of the image */
+}
+
+
+.login h1{
+    font-family: 'Poppins', sans-serif; /* Use Poppins font */
+    font-size: 27px;
+    font-weight: 600; /* Semi-bold weight */
+    color: #111111;
+    margin-top: 20px; /* Space between logo and heading */
+}
+
+
+.Signup{
+    height: 529px;
+    width: 419px;
+    margin-left: 200px;
+    margin-top: 100px;
+    padding: 0px 20px;
+}
+
+.Signup h1{
+    font-family: 'Poppins', sans-serif; /* Use Poppins font */
+    font-size: 22px;
+    font-weight: 600; /* Semi-bold weight */
+    color: #111111;
+    margin-top: 20px; /* Space between logo and heading */
+}
+.Signup a{
+    font-family: 'Poppins', sans-serif; /* Use Poppins font */
+    font-size: 11.28px;
+    color: #4831D4;
+    /* margin-top: 10px; Space between label and input */
+    display: block; /* Make label a block element for better spacing */
+    
+}
+
+/* .Signup input{
+    height: 39.47px;
+    border-radius: 8.46px;
+    border-color: #b8b1b1;
+
+
+} */
+* input {
+    /* padding: 3px; */
+    height: 39.47px;
+    border-radius: 8.46px;
+    border: 0.73px solid rgba(102, 102, 102, 0.35); /* Stroke color with 35% opacity */
+    /* box-sizing: border-box; Ensures padding and border are included in the element's width and height */
+}
+* input:focus {
+    border: 4px solid rgba(102, 102, 102, 0.35); /* Stroke color with 35% opacity */
+    outline: none; /* Remove default outline on focus */
+}
+* label{
+    font-family: 'Poppins', sans-serif; /* Use Poppins font */
+    font-size: 13px;
+    color: #666666;
+    margin-top: 10px; /* Space between label and input */
+    display: block; /* Make label a block element for better spacing */
+}
+.Signup button{
+    height: 45.1px;
+    border-radius: 28.13px;
+    background-color: #111111;
+    opacity: 25%;
+    color: #ffffff;
+    font-family: 'Poppins', sans-serif; /* Use Poppins font */
+    font-size: 15.1px;
+}
+
+.login button{
+    height: 45.1px;
+    border-radius: 28.13px;
+    background-color: #111111;
+    opacity: 25%;
+    color: #ffffff;
+    font-family: 'Poppins', sans-serif; /* Use Poppins font */
+    font-size: 15.1px;
+}
