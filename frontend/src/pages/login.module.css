@@ -23,7 +23,6 @@
 .login{
     display: flex;
     justify-content: center;
-    align-items: left;
     flex-direction: column;
     height: 440px; /* Full viewport height */
     width: 592px; /* Full viewport width */
@@ -111,3 +110,4 @@
     font-family: 'Poppins', sans-serif; /* Use Poppins font */
     font-size: 15.1px;
 }
+

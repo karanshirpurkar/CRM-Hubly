@@ -7,13 +7,11 @@ export async function Register({firstName, lastName, email, password}) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `${token}` // Include the token here
-
             },
             body: JSON.stringify({firstName, lastName, email, password})
         });
         const data = await res.json();
-        const status = res.status;
+        const status = res.send("User registered successfully");
         return { data, status };
     } catch (error) {
         console.error('Error:', error);
@@ -131,3 +129,26 @@ try {
         throw error;
     }
 }   
+
+export async function UpdateMember(updatedUserData) {
+    try {
+        if (!token) {
+            throw new Error("Token is required");
+        }
+
+        const res = await fetch(`${URL}/employee/update`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `${token}` // Include the token here
+            },
+            body: JSON.stringify({updatedUserData})
+        });
+        const data = await res.json();
+        const status = res.status;
+        return { data, status };
+    } catch (error) {
+        console.error('Error:', error);
+        throw error;
+    }
+}

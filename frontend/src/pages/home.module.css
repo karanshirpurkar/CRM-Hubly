@@ -444,8 +444,34 @@
     bottom: 20px; /* Distance from the bottom of the screen */
     right: 20px; /* Distance from the right of the screen */
     z-index: 1000; /* Ensure it floats above other elements */
-    width: 400px; /* Set a fixed width for the chatbot */
+    width: auto; /* Set a fixed width for the chatbot */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Add a shadow for better visibility */
     border-radius: 10px; /* Optional: Add rounded corners */
     overflow: hidden; /* Prevent content overflow */
+}
+
+.chatbotButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: fixed; /* Fix the chatbot to the viewport */
+  bottom: 20px; /* Distance from the bottom of the screen */
+  right: 20px; /* Distance from the right of the screen */
+  z-index: 1000; /* Ensure it floats above other elements */
+  height: 116px; /* Set a fixed height for the chatbot button */
+  width: 240px; /* Set a fixed width for the chatbot */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Add a shadow for better visibility */
+  border-radius: 10px; /* Optional: Add rounded corners */
+  overflow: hidden; /* Prevent content overflow */
+  background-color: #ffffff; /* Set the background color to blue */
+}
+
+.chatbotButton img {
+
+  height: 48px; /* Set a fixed height for the chatbot button image */
+  width: 48px; /* Set a fixed width for the chatbot button image */  
+  background-color: #ffffff; /* Change background color on hover */
+  cursor: pointer; /* Change cursor to pointer on hover */
+  
 }

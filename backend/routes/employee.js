@@ -74,4 +74,34 @@ router.get('/update',auth, async(req,res,next)=>{
     }
 })
 
+router.put('/update', auth, async (req, res, next) => {
+    const { updatedUserData } = req.body;
+    const { _id, firstName, lastName, email, designation, password } = updatedUserData;
+    try {
+        const Member = await Employee.findById(_id);
+        if (Member) {
+            Member.firstName = firstName;
+            Member.lastName = lastName;
+            Member.email = email;
+            Member.designation = designation;
+
+            // Only update the password if it is provided
+            if (password && password.trim() !== '000000000') {
+                const salt = await bcrypt.genSalt(10);
+                const hashedPassword = await bcrypt.hash(password, salt);
+                Member.password = hashedPassword;
+            }
+
+            await Member.save();
+            res.status(201).send("Member updated successfully");
+        } else {
+            const error = new Error("user not found");
+            error.name = "NotFoundError";
+            throw error;
+        }
+    } catch (error) {
+        next(error);
+    }
+});
+
 module.exports = router;

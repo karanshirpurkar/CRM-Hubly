@@ -1,11 +1,13 @@
 import React from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Style from './login.module.css';
+import S_style from './login.module.css';
 import Vector from '../assets/images/Vector.png';
 import Loginpng from '../assets/images/lohin.png';
 import { Register } from '../service/services';
 const Signup = () => {
+    const navigate = useNavigate();
+
     const [user, setUser] = useState({
         firstName: '',
         lastName: '',
@@ -16,9 +18,10 @@ const Signup = () => {
     const [acceptTerms, setAcceptTerms] = useState(false);
     const handleChange = (e) => {
         setUser({
-            ...user,[e.target.name]: e.target.value});
+            ...user, [e.target.name]: e.target.value
+        });
     };
-    const handlesubmit = async(e) => {
+    const handlesubmit = async (e) => {
         e.preventDefault();
         console.log(user);
         console.log(acceptTerms);
@@ -40,22 +43,22 @@ const Signup = () => {
             return;
         }
         const res = await Register(user)
-        alert(res.data.message)
+        alert("User registered successfully");
         localStorage.setItem('token', res.data.token);
         console.log('Token saved to localStorage:', res.data.token);
 
-        useNavigate('/dashboard');
-        
+        navigate('/dashboard');
+
     }
     return (
 
         <div>
-            <div className={Style.logo}>
+            <div className={S_style.logo}>
                 <img src={Vector} alt="Logo" className="logo" />
                 <h1>Hubly</h1>
             </div>
 
-            <div className={Style.Signup}>
+            <div className={S_style.Signup}>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '10px' }}>
                     <h1>Create an account</h1>
                     <a href="/login">Sign in instead</a>
@@ -72,27 +75,35 @@ const Signup = () => {
                     <label htmlFor="Lastname">Last name</label>
                     <input type="text" name='lastName' value={user.lastName} onChange={handleChange} />
                     <label htmlFor="Email">Email</label>
-                    <input type="text" name='email' value={user.email}  onChange={handleChange} />
+                    <input type="text" name='email' value={user.email} onChange={handleChange} />
                     <label htmlFor="Password">Password</label>
                     <input type="Password" name='password' value={user.password} onChange={handleChange} />
                     <label htmlFor="Confirmpassword">Confim Password</label>
                     <input type="Password" name='confirmPassword' value={user.confirmPassword} onChange={handleChange} />
-
-                    <label htmlFor="checkbox" style={{ display: "flex" }}><input style={{
-                        height: '12.69px',
-                    }} type="checkbox" name='checked' onChange={(e) => setAcceptTerms(e.target.checked)}/>    I agree to the {' '}
-                        <a href="#">Terms of Service </a>{' '}
-                        and {' '}
-                        <a href="#" >Privacy Policy</a>
-                    </label>
+                    <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px' // Add some spacing between the checkbox and the text
+                    }}>
+                        <input
+                            style={{
+                                height: '16px', // Adjust height for better alignment
+                                width: '16px' // Optional: Set width for consistency
+                            }}
+                            type="checkbox"
+                            name="checked"
+                            onChange={(e) => setAcceptTerms(e.target.checked)}
+                        />
+                        <p style={{ margin: 0 }}>I agree to the <span style={{ fontWeight: 'bold' }}>Terms of Service</span> and <span style={{ fontWeight: 'bold' }}>Privacy Policy</span></p>
+                    </div>
                     <button type="submit" onClick={handlesubmit}>Create an account</button>
 
 
                 </form>
             </div>
 
-            <p style={{marginTop:'117px', marginLeft:"130px"}}>This si
-            te is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply.</p>
+            <p style={{ marginTop: '275px', marginLeft: "130px" }}>This si
+                te is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply.</p>
 
             <img style={{
                 width: '570px',

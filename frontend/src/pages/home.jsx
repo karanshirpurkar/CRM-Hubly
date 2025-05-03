@@ -13,10 +13,17 @@ import Vector1 from '../assets/images/Vector (1).png';
 import Group1 from '../assets/images/Group1.png';
 import Group2 from '../assets/images/Group2.png';
 import Group3 from '../assets/images/Group3.png';
+import Iconstatus from '../assets/images/dashboard/Iconstatus.png';
+import Message from '../assets/images/dashboard/message.png';
 import Chatbot from './chatbot/chatboat'; // Import the Chatbot component
 
 
 export default function Home() {
+    const [showChatbot, setShowChatbot] = useState(false);
+
+    const toggleChatbot = () => {
+      setShowChatbot(prev => !prev);
+    };
     const navigate = useNavigate();
     const handleLogin = (login) => {
         navigate('/login');
@@ -247,10 +254,42 @@ export default function Home() {
                 </div>
 
             </footer>
-            <div className={Style.chatbotContainer}>
-                <Chatbot />
+            {/* <div style={{width:"60px", height:"60px", borderRadius:""}}>
+                        <img src={Message} alt="Message" />
             </div>
-        </div >
+            <div className={Style.chatbotContainer}>
+
+                <Chatbot />
+            </div> */}
+
+            <div className={Style.chatbotContainer}>
+                {showChatbot ? (
+                    // Render chatbot only
+                    <div>
+                        <Chatbot />
+                    </div>
+                ) : (
+                    // Render message icon only
+                    <div
+                        style={{
+                            width: "60px",
+                            height: "60px",
+                            borderRadius: "50%",
+                            cursor: "pointer",
+                            backgroundColor: "#33475B",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center"
+                        }}
+                        onClick={toggleChatbot}
+                    >
+                        <img src={Message} alt="Message" style={{ width: "30px", height: "29px" }} />
+                    </div>
+                )}
+            </div>
+
+        </div>
+
 
     )
 };
