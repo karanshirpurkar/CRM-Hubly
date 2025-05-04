@@ -2,7 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { allTickets } from '../../service/chatservices'; // Adjust the import path as needed
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css'; // Import styles for the progress bar
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Dot } from 'recharts';
 
+function getWeekNumber(date) {
+    const firstDay = new Date(date.getFullYear(), 0, 1);
+    const days = Math.floor((date - firstDay) / (24 * 60 * 60 * 1000));
+    return Math.ceil((days + firstDay.getDay() + 1) / 7);
+}
 
 function Analytics() {
     const [tickets, setTickets] = useState([]);
@@ -10,6 +16,8 @@ function Analytics() {
     const [responseTimes, setResponseTimes] = useState([]); // State to store response times
     const [averageResponseTime, setAverageResponseTime] = useState(0); // State to store average response time
     const [resolvedPercentage, setResolvedPercentage] = useState(0); // State to store resolved tickets percentage
+    const [missedChatsByWeek, setMissedChatsByWeek] = useState([]);
+
 
     useEffect(() => {
         const fetchTickets = async () => {
@@ -19,6 +27,36 @@ function Analytics() {
 
                 // Set tickets and calculate total tickets
                 setTickets(response.data);
+
+
+                // Calculate missed chats (response after more than 2 hours)
+                const missedChatCounts = {};
+                response.data.forEach(ticket => {
+                    if (ticket.createdAt && ticket.responseInfo) {
+                        const created = new Date(ticket.createdAt);
+                        const responded = new Date(ticket.responseInfo);
+                        const diffHours = (responded - created) / (1000 * 60 * 60);
+
+                        if (diffHours > 2) {
+                            const week = `Week ${getWeekNumber(created)}`;
+                            missedChatCounts[week] = (missedChatCounts[week] || 0) + 1;
+                        }
+                    }
+                });
+
+                // Format data for chart
+                const formattedMissedChats = Object.entries(missedChatCounts).map(
+                    ([week, count]) => ({
+                        name: week,
+                        chats: count
+                    })
+                );
+
+                // Update state
+                setMissedChatsByWeek(formattedMissedChats);
+                console.log('Missed chats by week:', formattedMissedChats);
+
+
                 setTotalTickets(response.data.length);
 
                 // Calculate response times
@@ -61,9 +99,31 @@ function Analytics() {
             <h1>Analytics</h1>
             <div className="chart">
                 <h2 style={{ fontSize: "24px", color: "#00D907" }}>Missed Chats</h2>
+                <div style={{ width: '100%', height: 300 }}>
+                    <h2 style={{ color: 'green' }}>Missed Chats</h2>
+                    <ResponsiveContainer width="100%" height={300}>
+                        <LineChart data={missedChatsByWeek}>
+                            <CartesianGrid strokeDasharray="3 3" />
+                            <XAxis dataKey="name" />
+                            <YAxis allowDecimals={false} />
+                            <Tooltip />
+                            <Line
+                                type="monotone"
+                                dataKey="chats"
+                                stroke="#00FF00"
+                                strokeWidth={3}
+                                dot={{ stroke: 'black', strokeWidth: 2, fill: 'white' }}
+                                activeDot={{ r: 8 }}
+
+                            />
+                        </LineChart>
+                    </ResponsiveContainer>
+
+                </div>
+
             </div>
             <div className="content" style={{ display: 'flex', alignItems: 'center', marginTop: '20px', marginLeft: '20px' }}>
-                <div className="summary" style={{ flex:"1",width: '647px', height: '100%', gap: '20px', display: 'flex', flexDirection: 'column'}}>
+                <div className="summary" style={{ flex: "1", width: '647px', height: '100%', gap: '20px', display: 'flex', flexDirection: 'column' }}>
 
 
                     <h2 style={{ fontSize: "24px", color: "#00D907" }}>Average Reply Time</h2>
@@ -74,7 +134,7 @@ function Analytics() {
                     <h2 style={{ fontSize: "24px" }}>Total Chats</h2>
                     <p>This metric shows the total number of chats for all channels for the selected period.</p>
                 </div>
-                <div className="visuals" style={{flex:"0.3"}}>
+                <div className="visuals" style={{ flex: "0.3" }}>
                     <div style={{ width: '114px', height: '114px', padding: '10px', alignItems: 'center', justifyContent: 'center', display: 'flex' }}>
                         <p style={{ fontSize: "25px", fontWeight: "50%", color: "#00D907" }}>{averageResponseTime} min</p> {/* Display average response time */}
                     </div>
