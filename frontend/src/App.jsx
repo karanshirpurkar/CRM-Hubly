@@ -5,7 +5,7 @@ import Login from './pages/login.jsx'
 import Signup from './pages/signup.jsx'
 import Dashboard from './pages/dashboard/dashboard.jsx'
 import Chatbot from './pages/chatbot/chatboat.jsx'
-import HublyCRM from './pages/newhome.jsx'
+import Cut from './pages/dashboard/cut.jsx'
 function App() {
   return (
     <>
@@ -16,7 +16,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/chatbot" element={<Chatbot />} />
-          <Route path="/newhome" element={<HublyCRM />} />
+          <Route path="/cut" element={<Cut />} />
           {/* Add more routes as needed */}
 
         </Routes>

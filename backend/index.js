@@ -10,6 +10,7 @@ const User=require('./routes/login')
 const Ticket=require('./routes/ticket')
 const Employee=require('./routes/employee')
 const Update=require('./routes/updatet')
+const Bot=require('./routes/bot')
 const bodyParser = require('body-parser');
 const app = express();  
 dotenv.config();
@@ -28,6 +29,7 @@ app.use('/user', User);
 app.use('/ticket', Ticket);
 app.use('/employee', Employee);
 app.use('/update', Update);
+app.use('/bot', Bot);
 
 
 app.use(ErrorHandler)

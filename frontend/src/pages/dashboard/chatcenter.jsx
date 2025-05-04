@@ -9,7 +9,7 @@ import Ticket from '../../assets/images/dashboard/ticket.png';
 
 function ChatCenter({ selectedChatId }) {
     // User
-    const [userInfo, setUserInfo] = useState({ name: '', email: '' });
+    const [userInfo, setUserInfo] = useState({ name: '', email: '' , status: '' });
     const [userData, setUserData] = useState({ firstName: '', lastName: '', email: '', designation: '' });
 
     // Chat
@@ -21,6 +21,7 @@ function ChatCenter({ selectedChatId }) {
     // UI Controls
     const [showmember, setShowMember] = useState(false);
     const [showstatus, setShowStatus] = useState(false);
+
 
     // Assignment
     const [AllMembers, setAllMembers] = useState([]);
@@ -80,6 +81,7 @@ function ChatCenter({ selectedChatId }) {
             setUserInfo({
                 name: res.data.name,
                 email: res.data.email,
+                status: res.data.status,
 
             });
             formatDateTime(res.data.createdAt); // Format the date and time
@@ -150,6 +152,7 @@ function ChatCenter({ selectedChatId }) {
 
     const handleMemberClick = async (memberId) => {
         console.log("memberId", memberId)
+        
         try {
             const resticket = await Assigned({ ticketId: selectedChatId, MemberId: memberId });
             console.log("Assigned successfully", resticket);
@@ -237,6 +240,7 @@ function ChatCenter({ selectedChatId }) {
                             );
                         })}
                     </div>
+                    {/* { userData.status === "Resolved" }
                     <div className="chat-input" style={{ display: 'flex', marginTop: '10px' }}>
                         <input
                             type="text"
@@ -247,7 +251,22 @@ function ChatCenter({ selectedChatId }) {
                             style={{ flex: 1, padding: '8px' }}
                         />
                         <button onClick={handleSend} style={{ padding: '8px 12px' }}>➤</button>
-                    </div>
+                    </div> */}
+                    {userInfo.status === "Resolved" ? (
+                        <p style={{ fontStyle: 'italic', color: 'gray', marginLeft:"35%" }}>This chat has been Resolved.</p>
+                    ) : (
+                        <div className="chat-input" style={{ display: 'flex', marginTop: '10px' }}>
+                            <input
+                                type="text"
+                                placeholder="Write a message"
+                                value={input}
+                                onChange={(e) => setInput(e.target.value)}
+                                onKeyDown={handleKeyDown}
+                                style={{ flex: 1, padding: '8px' }}
+                            />
+                            <button onClick={handleSend} style={{ padding: '8px 12px' }}>➤</button>
+                        </div>
+                    )}
                 </div>
                 <div className="info" style={{ flex: 1, border: '1px #ccc', padding: '10px', width: "550px" }}>
                     <div className="profile" style={{ display: 'flex', alignItems: 'center', gap: "10px", padding: '10px' }}>

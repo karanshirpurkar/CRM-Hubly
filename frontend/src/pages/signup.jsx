@@ -5,6 +5,7 @@ import S_style from './login.module.css';
 import Vector from '../assets/images/Vector.png';
 import Loginpng from '../assets/images/lohin.png';
 import { Register } from '../service/services';
+
 const Signup = () => {
     const navigate = useNavigate();
 
@@ -47,7 +48,7 @@ const Signup = () => {
         localStorage.setItem('token', res.data.token);
         console.log('Token saved to localStorage:', res.data.token);
 
-        navigate('/dashboard');
+        navigate(`/dashboard`);
 
     }
     return (

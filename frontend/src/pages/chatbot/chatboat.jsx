@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Createchat, Updatechat, GetChat as Getchat } from '../../service/chatservices'; // Add Getchat
 import Iconstatus from '../../assets/images/dashboard/Iconstatus.png';
+import { botget } from '../../service/chatservices';
 
 export default function Chatbot() {
   const [chats, setChats] = useState([]);
@@ -8,6 +9,20 @@ export default function Chatbot() {
   const [formShown, setFormShown] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [ticketId, setTicketId] = useState(null);
+  const [botdata, setBotData] = useState(
+    {
+      header: "",
+      background: "",
+      prompt: "",
+      greetings: "",
+      name: "",
+      email: "",
+      phone: "",
+      missed: "",
+      welcome: ""
+
+    }
+  )
 
   const [userInfo, setUserInfo] = useState({
     name: '',
@@ -17,6 +32,8 @@ export default function Chatbot() {
 
   // ⬇️ Load from localStorage on first render
   useEffect(() => {
+    fetchbotdata();
+
     const savedTicketId = localStorage.getItem('ticket');
     console.log('Saved ticket ID:', savedTicketId); // Debugging line
     if (savedTicketId) {
@@ -27,6 +44,26 @@ export default function Chatbot() {
     }
   }, []);
 
+  const fetchbotdata = async () => {
+    try {
+      const res = await botget();
+      console.log('Bot data response:', res.data);
+      setBotData({
+        header: res.data[0].header,
+        background: res.data[0].background,
+        prompt: res.data[0].prompt,
+        greetings: res.data[0].greetings,
+        name: res.data[0].name,
+        email: res.data[0].email,
+        phone: res.data[0].phone,
+        missed: res.data[0].missed,
+        welcome: res.data[0].welcome
+      });
+    }
+    catch (err) {
+      console.log("Error loading chat history", err);
+    }
+  };
   const fetchChatHistory = async (id) => {
     try {
       const res = await Getchat(id);
@@ -38,6 +75,8 @@ export default function Chatbot() {
       console.log("Error loading chat history", err);
     }
   };
+
+
   const handleFormChange = (e) => {
     setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
   };
@@ -53,13 +92,13 @@ export default function Chatbot() {
     if (formSubmitted && ticketId) {
       console.log('Sending message to server:', userMessage);
       console.log('Ticket ID:', ticketId); // Debugging line
-      await Updatechat({ticketId, userMessage});
-      
+      await Updatechat({ ticketId, userMessage });
+
     }
 
     if (!formShown) {
       setTimeout(() => {
-        setChats(prev => [...prev, { type: 'form', senderType: 'Bot' }]);
+        setChats(prev => [...prev, { type: 'form', senderType: 'Bot', message: ` ${botdata.greetings} ${botdata.Prompt} ` }]);
         setFormShown(true);
       }, 500);
     }
@@ -87,14 +126,15 @@ export default function Chatbot() {
       console.log('Response from Createchat:', response.data.ticket._id);
       const ticketId = response.data.ticket._id;
       localStorage.setItem('ticket', ticketId);
-      localStorage.setItem('token',response.data.token) // Save ticket ID in localStorage
+      localStorage.setItem('token', response.data.token) // Save ticket ID in localStorage
 
 
       // ✅ Add thank-you message
       const thankMessage = {
         type: 'text',
         senderType: 'Member',
-        message: `Thanks ${userInfo.name}, how can we assist you today?`
+        message: `${botdata.prompt} 
+        ${botdata.greetings}`
       };
 
       setChats(prev => [...prev, thankMessage]);
@@ -113,16 +153,18 @@ export default function Chatbot() {
 
 
   return (
-    <div className="chat-container" style={{ display: 'flex', flexDirection: 'column', width: '400px', margin: '0 auto' }}>
-      <div className="chat-header" style={{ background: '#f1f1f1', 
-        padding: '10px', textAlign: 'center', 
-        fontWeight: 'bold', display: 'flex', alignItems: 'center',backgroundColor: '#33475B', color:"white" }}>
-      
+    <div className="chat-container" style={{ display: 'flex', backgroundColor: `${botdata.background}`, flexDirection: 'column', width: '400px', margin: '0 auto' }}>
+      <div className="chat-header" style={{
+        backgroundColor: `${botdata.header}`,
+        padding: '10px', textAlign: 'center',
+        fontWeight: 'bold', display: 'flex', alignItems: 'center', color: "white"
+      }}>
+
         <img src={Iconstatus} alt="Status" style={{ width: '37px', height: '33px', marginRight: '5px' }} />
         <h4>Hubly</h4>
       </div>
 
-      <div className="chat-box" style={{ height: '400px', overflowY: 'scroll'}}>
+      <div className="chat-box" style={{ height: '400px', overflowY: 'scroll' }}>
         {chats.map((chat, index) => {
           const chatType = chat.type || 'text'; // fallback for older data
           return (
@@ -130,41 +172,33 @@ export default function Chatbot() {
               {chatType === 'text' ? (
                 <div style={{
                   display: 'inline-block',
-                  background: chat.senderType === 'user' ? '#dcf8c6' : '#f1f0f0',
+                  backgroundColor: chat.senderType === 'user' ? '#dcf8c6' : '#6DF7FC',
                   padding: '8px 12px',
                   borderRadius: '15px'
                 }}>
                   {chat.message}
                 </div>
               ) : (
+                
                 !formSubmitted && (
-                  <form onSubmit={handleFormSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '10px' }}>
-                    <input
-                      type="text"
-                      name="name"
-                      placeholder="Name"
-                      value={userInfo.name}
-                      onChange={handleFormChange}
-                      style={{ padding: '8px' }}
-                    />
-                    <input
-                      type="email"
-                      name="email"
-                      placeholder="Email"
-                      value={userInfo.email}
-                      onChange={handleFormChange}
-                      style={{ padding: '8px' }}
-                    />
-                    <input
-                      type="text"
-                      name="phone"
-                      placeholder="Phone"
-                      value={userInfo.phone}
-                      onChange={handleFormChange}
-                      style={{ padding: '8px' }}
-                    />
-                    <button type="submit" style={{ padding: '8px 12px' }}>Submit</button>
-                  </form>
+                  <div className="form" style={{ height: "100%", width: "280px", display: "flex", flexDirection: "column", backgroundColor: "#ffffff", marginLeft: "10px", padding: "10px", borderRadius: "10px" }}>
+                    <h3>Introduction Yourself</h3>
+                    <label htmlFor="Name" style={{
+                      color: "#50505"
+                    }}>Your Name</label>
+                    <input type="text" placeholder={botdata.name} onChange={handleFormChange} value={userInfo.name} name='name'
+                      style={{ border: "none", height: "10px", width: "250px", borderBottom: "2px solid #ccc", borderRadius: "0px", marginBottom: "2px" }} />
+                    <label htmlFor="phone" style={{ color: "#50505" }}>Phone</label>
+
+                    <input type="text" placeholder={botdata.phone} onChange={handleFormChange} value={userInfo.phone} name='phone'
+                      style={{ border: "none", width: "250px", borderBottom: "2px solid #ccc", borderRadius: "0px" }} />
+
+                    <label htmlFor="Email" style={{ color: "#50505" }}>Email</label>
+
+                    <input type="email" placeholder={botdata.email} onChange={handleFormChange} value={userInfo.email} name='email'
+                      style={{ border: "none", width: "250px", borderBottom: "2px solid #ccc", borderRadius: "0px", }} />
+                    <button onClick={handleFormSubmit} style={{ height: "30px", width: "203px", backgroundColor: "#184E7F", color: "white", borderRadius: "9.12px", margin: "5px 30px" }}>Thank You</button>
+                  </div>
                 )
               )}
             </div>
@@ -183,49 +217,48 @@ export default function Chatbot() {
         />
         <button onClick={handleSend} style={{ padding: '8px 12px' }}>➤</button>
       </div> */}
-          <div
-      className="chat-input"
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        backgroundColor: '#fff',
-        borderRadius: '10px',
-        padding: '10px 15px',
-        boxShadow: '0 0 5px rgba(0,0,0,0.1)',
-        width: '100%',
-        maxWidth: '500px'
-      }}
-    >
-      <input
-        type="text"
-        placeholder="Write a message"
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        onKeyDown={handleKeyDown}
+      <div
+        className="chat-input"
         style={{
-          flex: 1,
-          border: 'none',
-          outline: 'none',
-          fontSize: '16px'
+          display: 'flex',
+          alignItems: 'center',
+          backgroundColor: '#fff',
+          borderRadius: '10px',
+          padding: '10px 15px',
+          boxShadow: '0 0 5px rgba(0,0,0,0.1)',
+          width: '100%',
+          maxWidth: '500px'
         }}
-      />
-      <button
-        onClick={handleSend}
-        style={{
-          background: 'none',
-          border: 'none',
-          fontSize: '20px',
-          cursor: 'pointer',
-          color: '#a0aec0',
-          marginLeft: '10px'
-        }}
-        title="Send"
       >
-        ➤
-      </button>
-    </div>
+        <input
+          type="text"
+          placeholder="Write a message"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          onKeyDown={handleKeyDown}
+          style={{
+            flex: 1,
+            border: 'none',
+            outline: 'none',
+            fontSize: '16px'
+          }}
+        />
+        <button
+          onClick={handleSend}
+          style={{
+            background: 'none',
+            border: 'none',
+            fontSize: '20px',
+            cursor: 'pointer',
+            color: '#a0aec0',
+            marginLeft: '10px'
+          }}
+          title="Send"
+        >
+          ➤
+        </button>
+      </div>
     </div>
 
   );
 }
-  

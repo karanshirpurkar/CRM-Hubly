@@ -13,7 +13,7 @@ import AddMember from './addmember.jsx';
 import SettingTab from './setting.jsx'
 import DashHome from './dashhome.jsx';
 import ChatCenter from './chatcenter.jsx';
-import Custombot from './custombot.jsx';
+import ChatbotCustomizer from './custombot.jsx';
 import Analytics from './analytics.jsx';
 
 export default function Dashboard() {
@@ -56,7 +56,7 @@ export default function Dashboard() {
                         <ChatCenter 
                             selectedChatId={selectedChatId} 
                         />)}
-                    {activeTab === 'bot' && <Custombot />}
+                    {activeTab === 'bot' && <ChatbotCustomizer />}
                     {activeTab === 'insights' && <Analytics />}
                 </div>
             </div>

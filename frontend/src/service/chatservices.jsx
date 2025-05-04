@@ -151,3 +151,58 @@ export async function allTickets() {
     console.error('Error:', error);
   }
 } 
+
+export async function botpost(botdata) {
+  try {
+    const res = await fetch(`${URL}/update/bot`, {
+      method: 'POST',
+      headers: {  
+        'Content-Type': 'application/json',
+        'Authorization': `${token}` // Include the token here
+      },
+      body: JSON.stringify({ botdata })
+    });
+    const data = await res.json();
+    const status = res.status;
+    return { data, status };
+  }
+  catch (error) {
+    console.error('Error:', error);
+  } 
+}
+export async function botget() {
+  try {
+    const res = await fetch(`${URL}/bot/`, {
+      method: 'GET',
+      headers: {  
+        'Content-Type': 'application/json',
+        'Authorization': `${token}` // Include the token here
+      }
+    });
+    const data = await res.json();
+    const status = res.status;
+    return { data, status };
+  }
+  catch (error) {
+    console.error('Error:', error);
+  } 
+}
+
+export async function botput(botdata) {
+  try {
+    const res = await fetch(`${URL}/bot/`, {
+      method: 'PUT',
+      headers: {  
+        'Content-Type': 'application/json',
+        'Authorization': `${token}` // Include the token here
+      },
+      body: JSON.stringify({ botdata })
+    });
+    const data = await res.json();
+    const status = res.status;
+    return { data, status };
+  }
+  catch (error) {
+    console.error('Error:', error);
+  } 
+}

@@ -1,6 +1,7 @@
 const Emoployee = require('../models/employes.model');
 const auth = require('../middleware/authhandler');
 const Admin = require('../models/admin');
+const Bot = require('../models/bot.model');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const env = require('dotenv');
@@ -90,5 +91,6 @@ router.delete("/all", async (req, res) => {
         res.status(500).json({ message: "Error deleting tickets", error });
     }
 });
+
 
 module.exports = router;
