@@ -43,12 +43,21 @@ const Signup = () => {
             alert('Passwords do not match');
             return;
         }
-        const res = await Register(user)
-        alert("User registered successfully");
-        localStorage.setItem('token', res.data.token);
-        console.log('Token saved to localStorage:', res.data.token);
+        // const res = await Register(user)
+        // alert("User registered successfully");
+        // localStorage.setItem('token', res.data.token);
+        // console.log('Token saved to localStorage:', res.data.token);
 
-        navigate(`/dashboard`);
+        // navigate(`/dashboard`);
+        
+            const res = await Register(user);
+            alert("User registered successfully");
+            localStorage.setItem('token', res.data.token);
+            console.log('Token saved to localStorage:', res.data.token);
+    
+            // Navigate to the dashboard
+            navigate(`/dashboard`);
+
 
     }
     return (

@@ -1,4 +1,4 @@
-import { react as React, useState } from 'react'
+import { react as React, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Style from './home.module.css';
 import Vector from '../assets/images/Vector.png'
@@ -16,13 +16,19 @@ import Group3 from '../assets/images/Group3.png';
 import Iconstatus from '../assets/images/dashboard/Iconstatus.png';
 import Message from '../assets/images/dashboard/message.png';
 import Chatbot from './chatbot/chatboat'; // Import the Chatbot component
+import { botget } from '../service/chatservices';
 
 
 export default function Home() {
     const [showChatbot, setShowChatbot] = useState(false);
+    const [welcomeMessage, SetwelcomeMessage] = useState("")
+
+    useEffect(() => {
+        fetchbotdata();
+    }, []);
 
     const toggleChatbot = () => {
-      setShowChatbot(prev => !prev);
+        setShowChatbot(prev => !prev);
     };
     const navigate = useNavigate();
     const handleLogin = (login) => {
@@ -31,6 +37,19 @@ export default function Home() {
     const handleSignup = (login) => {
         navigate('/signup');
     }
+    const fetchbotdata = async () => {
+        try {
+            const res = await botget();
+            console.log('Bot data response:', res.data);
+            SetwelcomeMessage  (
+
+                res.data[0].welcome
+            );
+        }
+        catch (err) {
+            console.log("Error loading chat history", err);
+        }
+    };
 
 
     return (
@@ -133,28 +152,6 @@ export default function Home() {
                     <p>Hubly helps businesses streamline customer interactions, track leads, and automate tasks — saving you time and maximizing revenue. Whether you’re a startup or an enterprise, Hubly adapts to your needs, giving you the tools to scale efficiently.</p>
                 </div>
                 <div className={Style.div6}>
-                    {/* <div className={Style.div61}>
-                        <h1>MULTIPLE PLATFORMS TOGETHER!</h1>
-                        <p style={{ marginBottom: '40px' }}>Email communication is a breeze with our fully integrated, drag & drop email builder.</p>
-                        <h1>Close</h1>
-                        <p style={{ marginBottom: '16px' }}>Capture leads using our landing pages, surveys, forms, calendars, inbound phone system & more!</p>
-                        <h1>Nurture</h1>
-                        <p>Capture leads using our landing pages, surveys, forms, calendars, inbound phone system & more!</p>
-                        <img  src={Vector1} alt="Vector1" />
-
-                    </div>
-                    <div className={Style.div62}>
-                        <h1>hii</h1>
-
-                        <img style={{
-                            width: '295px',
-                            heigth: '131px',
-                        }}  src={Bucket1} alt="Bucket" />
-                        <img style={{
-                            width: '475px',
-                            heigth: '424px',
-                        }} src={Bucket} alt="Bucket" />
-                    </div> */}
                     <img style={{ height: "512px" }} src={Bucket} alt="Bucket" />
 
                 </div>
@@ -262,7 +259,7 @@ export default function Home() {
                 <Chatbot />
             </div> */}
 
-            <div className={Style.chatbotContainer}>
+            {/* <div className={Style.chatbotContainer}>
                 {showChatbot ? (
                     // Render chatbot only
                     <div>
@@ -286,9 +283,58 @@ export default function Home() {
                         <img src={Message} alt="Message" style={{ width: "30px", height: "29px" }} />
                     </div>
                 )}
-            </div>
+            </div> */}
 
+            {showChatbot ? (
+                <div className={Style.chatbotContainer}>
+
+
+                    <Chatbot />
+                </div>
+            ) : (
+
+
+                <div
+                    style={{
+                        position: "fixed", 
+                        bottom: "20px", 
+                        right: "20px", 
+                        zIndex: "1000", 
+                        overflow: "hidden",
+                        width: "60px",
+                        height: "60px",
+                        borderRadius: "50%",
+                        cursor: "pointer",
+                        backgroundColor: "#33475B",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center"
+                    }}
+                    onClick={toggleChatbot}
+                >
+                    <img src={Message} alt="Message" style={{ width: "30px", height: "29px" }} />
+                </div>
+
+            )}
+            {!showChatbot &&
+            <div className="floatbox" style={{ position: "fixed", 
+                bottom: "100px", 
+                right: "20px", 
+                zIndex: "1000", 
+                height: "116px", width: "240px", 
+                 boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.25)', 
+                borderRadius: '16px', backgroundColor: "#F6F7F5" }}>
+                <img src={Iconstatus} style={{ height: "48px", width: "48px", position: "absolute", top: "-20px", left: "40%" }} alt="Icon" />
+                <div style={{ height: "100px", width: "100%", padding: "30px 20px", marginTop: "10px", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+                    <p>{welcomeMessage}</p>
+
+                </div>
+
+            </div>
+}
         </div>
+
+
 
 
     )

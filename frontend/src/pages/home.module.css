@@ -140,7 +140,7 @@
     height: 761.63px;
     width: 1200px;
     background-color: #f7fafe;
-    margin: 0 auto; /* Center horizontally if parent is not flexbox */
+    margin: 50px auto; /* Center horizontally if parent is not flexbox */
 }
 
 
@@ -438,16 +438,27 @@
     border-top: 1px solid #e5e7eb;
     padding-top: 20px;
   }
-  
   .chatbotContainer {
     position: fixed; /* Fix the chatbot to the viewport */
     bottom: 20px; /* Distance from the bottom of the screen */
     right: 20px; /* Distance from the right of the screen */
     z-index: 1000; /* Ensure it floats above other elements */
-    width: auto; /* Set a fixed width for the chatbot */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Add a shadow for better visibility */
-    border-radius: 10px; /* Optional: Add rounded corners */
-    overflow: hidden; /* Prevent content overflow */
+    width: auto; /* Default width for larger screens */
+    max-width: 400px; /* Limit the maximum width */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    border-radius: 10px; 
+    overflow: hidden; 
+}
+
+/* Mobile View */
+@media (max-width: 768px) {
+    .chatbotContainer {
+        bottom: 10px; /* Adjust distance from the bottom */
+        right: 10px; /* Adjust distance from the right */
+        width: 90%; /* Take up most of the screen width */
+        max-width: none; /* Remove max-width restriction */
+        border-radius: 8px; /* Slightly smaller border radius */
+    }
 }
 
 .chatbotButton {
